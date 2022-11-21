@@ -1,0 +1,25 @@
+<template>
+    <AppLayout title="Details">
+        <div id="main" class="mt-14">
+            <div class="p-6">
+                <ExceptionDetailsList :exception="exception"/>
+            </div>
+        </div>
+    </AppLayout>
+</template>
+
+<script setup>
+import AppLayout from '@/Layouts/AppLayout.vue';
+import ExceptionDetailsList from "@/Components/ExceptionDetailsList.vue";
+
+const props = defineProps({
+    exception: {
+        type: Object,
+        required: true,
+    },
+});
+</script>
+
+<style scoped>
+
+</style>
