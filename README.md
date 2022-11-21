@@ -1,11 +1,4 @@
-<p align="center"><h1>Open Exception Tracker</h1></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Open Exception Tracker
 
 ## About Open Exception Tracker
 
@@ -45,13 +38,15 @@ php artisan migrate
 ```
 
 Once you have the application up and running, you will need to create a user and a service.
-The applciation is scaffolded with Laravel Breeze. 
+The application is scaffolded with Laravel Breeze. 
 So you can register a user by going to {app_url}/register.
 Once registered you will be logged in and see the Dashboard
+
 ![Dashboard](https://github.com/byronfichardt/free-exception-tracker/blob/main/public/img/img.png)
 
-This will generate a token that you will need to add to your application .env, as well as a service ID that will identify which
-service you will be sending the exceptions to.
+You will then need to go to {app_url}/services and create a service.
+This will generate a token that you will need to add to your application .env, (This will only show once!)
+It will also generate a service ID that will identify which service you will be sending the exceptions to.
 (see details below)
 
 ### Client
