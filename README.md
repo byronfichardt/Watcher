@@ -50,6 +50,7 @@ It will also generate a service ID that will identify which service you will be 
 (see details below)
 
 ### Client
+https://github.com/byronfichardt/laravel-free-exception-tracker  
 Then you will need to install the client package on the laravel project you want to track exceptions.
 
 ```bash
