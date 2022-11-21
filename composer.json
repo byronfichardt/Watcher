@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "byronfichardt/free-exception-tracker",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "An Opensource Exception Tracker",
+    "keywords": ["Free Exception Tracker", "Exception Tracker", "Exception Tracker Opensource", "Opensource Exception Tracker"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
