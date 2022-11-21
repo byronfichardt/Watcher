@@ -48,7 +48,7 @@ Once you have the application up and running, you will need to create a user and
 The applciation is scaffolded with Laravel Breeze. 
 So you can register a user by going to {app_url}/register.
 Once registered you will be logged in and see the Dashboard
-
+![Dashboard](https://github.com/byronfichardt/free-exception-tracker/blob/main/public/img/img.png)
 
 This will generate a token that you will need to add to your application .env, as well as a service ID that will identify which
 service you will be sending the exceptions to.
