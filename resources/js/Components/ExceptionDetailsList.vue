@@ -1,8 +1,8 @@
 <template>
-    <div class=" border-gray-200 rounded-t-lg px-3 py-1 grid grid-cols-4 w-2/6">
+    <div class=" border-gray-200 rounded-t-lg px-3 py-1 grid grid-cols-8">
         <div class=" col-span-4 pb-4 ml-2">
             <div class="w-full">
-                <a class="font-bold text-xl break-words" href="#">{{ exception.message }}</a>
+                <a class="font-bold text-xl" href="#">{{ exception.message }}</a>
                 <span class="font-bold text-gray-400 ml-4">{{ dayjs(exception.created_at).fromNow() }}</span>
             </div>
         </div>
@@ -21,7 +21,7 @@
         <div class="bg-gray-100 pr-1 col-span-4 overflow-hidden " >
             <div class="w-full">
                 <div v-for="event in exception.events" class="text-lg border-b-4 p-3" :class="selectedEvent && selectedEvent.id === event.id ? 'bg-gray-200' : ''">
-                    <a @click="selectedEvent = event"  class="cursor-pointer">{{ exception.file }} : {{exception.line}}</a>
+                    <a @click="selectedEvent = event"  class="cursor-pointer break-words">{{ exception.file }} : {{exception.line}}</a>
                 </div>
             </div>
         </div>
