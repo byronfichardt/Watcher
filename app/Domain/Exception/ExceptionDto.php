@@ -8,11 +8,12 @@ class ExceptionDto
         protected int $serviceId,
         protected int $environmentId,
         protected string $message,
+        protected int $statusCode,
         protected array $stackTrace,
         protected array $payload,
         protected string $file,
         protected int $line,
-        protected array $headers,
+        protected string $code,
     ) {
     }
 
@@ -73,10 +74,18 @@ class ExceptionDto
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getHeaders(): array
+    public function getCode(): string
     {
-        return $this->headers;
+        return $this->code;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
     }
 }

@@ -33,7 +33,7 @@ Route::middleware([
         }
 
         return Inertia::render('Exceptions/Exceptions', [
-            'exceptions' => $exceptions->get(),
+            'exceptions' => $exceptions->orderByDesc('created_at')->get(),
             'environments' => $environments,
             'services' => $services,
         ]);
@@ -44,6 +44,11 @@ Route::middleware([
             'exception' => $exception->load(['events', 'service', 'environment']),
         ]);
     })->name('exception.details');
+
+    Route::post('/exception/{exception}/resolve', function (App\Models\Exception $exception) {
+        $exception->resolved = true;
+        $exception->save();
+    })->name('exception.resolve');
 
     Route::get('/services', function () {
         return Inertia::render('Services/Services');

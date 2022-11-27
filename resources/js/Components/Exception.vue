@@ -1,16 +1,18 @@
 <template>
-    <div class="bg-gradient-to-b from-gray-100 to-gray-100 border-b-4 p-2 pr-1 grid grid-cols-12">
-        <div class=" col-span-8">
-            <span class= "w-full block">
-                <Link class="font-bold text-xl" :href="'/exception/' + exception.id">{{exception.message }}</Link>
-            </span>
-            <span class="font-bold text-gray-400 mt-0.5">{{ exception.file }} : {{ exception.line}}</span>
-            <span class="block">
-                <span v-if="exception.new" class="px-2 py-1 mr-2 rounded text-gray-500 bg-red-200 font-semibold text-sm align-center flex w-max mt-1 mb-2 float-left">
-                     New Issue
+    <div class="bg-white border p-2 pr-1 grid grid-cols-12">
+        <div class=" col-span-7">
+            <Link :href="'/exception/' + exception.id">
+                <span class= "w-full block">
+                    <div class="font-bold text-xl" >{{exception.message }}</div>
                 </span>
-                <span class="pr-2 pt-1.5 float-left">{{ dayjs(exception.last_occurred_at).fromNow() }}</span>
-            </span>
+                <span class="font-bold text-gray-500 mt-0.5">{{ exception.file }} : {{ exception.line}}</span>
+                <span class="block">
+                    <span v-if="exception.new" class="px-2 py-1 mr-2 rounded text-gray-500 bg-red-200 font-semibold text-sm align-center flex w-max mt-1 mb-2 float-left">
+                         New Issue
+                    </span>
+                    <span class="pr-2 pt-1.5 float-left">{{ dayjs(exception.last_occurred_at).fromNow() }}</span>
+                </span>
+            </Link>
         </div>
         <div class="col-span-1">
             <p class="text-xl mt-6">{{ exception.last_day }}</p>
@@ -24,6 +26,14 @@
         <div class=" col-span-1">
             <p class="text-xl mt-6">{{ exception.users }}</p>
         </div>
+        <div class=" col-span-1">
+            <div class="mt-6">
+                <button @click="resolve(exception)" class="border border-gray-500 rounded-md bg-white focus:outline-none p-1
+                 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer" type="button" :id="'flexCheck' + exception.id">
+                    Resolve
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -32,6 +42,7 @@ import {defineProps} from 'vue';
 import {Link} from '@inertiajs/inertia-vue3';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import {Inertia} from "@inertiajs/inertia";
 dayjs.extend(relativeTime);
 
 defineProps({
@@ -40,6 +51,14 @@ defineProps({
         required: true,
     },
 });
+
+const resolve = (exception) => {
+    Inertia.post('/exception/' + exception.id + '/resolve', [], {
+        preserveState: true,
+        preserveScroll: true,
+        only: ['exceptions'],
+    });
+}
 </script>
 
 <style scoped>

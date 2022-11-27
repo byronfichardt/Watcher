@@ -33,6 +33,8 @@ class ExceptionFactory
                 'line' => $exceptionDto->getLine(),
                 'environment_id' => $exceptionDto->getEnvironmentId(),
                 'service_id' => $exceptionDto->getServiceId(),
+                'code' => $exceptionDto->getCode(),
+                'status_code' => $exceptionDto->getStatusCode(),
             ]);
         }
 

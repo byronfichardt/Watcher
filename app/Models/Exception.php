@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ResolvedScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,6 +13,11 @@ class Exception extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public static function booted()
+    {
+        static::addGlobalScope(new ResolvedScope());
+    }
 
     public function events(): HasMany
     {
