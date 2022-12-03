@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\ExceptionController;
 use App\Http\Controllers\ServiceController;
-use App\Models\Environment;
-use App\Models\Service;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use WhichBrowser\Parser;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -17,42 +17,21 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware([
-    'auth:sanctum',
-])->group(function () {
-    Route::get('/dashboard', function (Request $request) {
-        $environments = Environment::all();
-        $services = Service::all();
-        $exceptions = App\Models\Exception::with('events');
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/dashboard', [ExceptionController::class, 'index'])->name('dashboard');
 
-        if($request->input('service')) {
-            $exceptions = $exceptions->where('service_id', $request->input('service'));
-        }
-        if($request->input('environment')) {
-            $exceptions = $exceptions->where('environment_id', $request->input('environment'));
-        }
-
-        return Inertia::render('Exceptions/Exceptions', [
-            'exceptions' => $exceptions->orderByDesc('created_at')->get(),
-            'environments' => $environments,
-            'services' => $services,
-        ]);
-    })->name('dashboard');
-
-    Route::get('/exception/{exception}', function (App\Models\Exception $exception) {
-        return Inertia::render('Exceptions/Details', [
-            'exception' => $exception->load(['events', 'service', 'environment']),
-        ]);
-    })->name('exception.details');
+    Route::get('/exception/{exception}', [ExceptionController::class, 'show'])->name('exception.details');
 
     Route::post('/exception/{exception}/resolve', function (App\Models\Exception $exception) {
         $exception->resolved = true;
         $exception->save();
     })->name('exception.resolve');
 
-    Route::get('/services', function () {
-        return Inertia::render('Services/Services');
-    })->name('services');
+    Route::get('/exception/{exception}/request', function (App\Models\Exception $exception) {
+        $requestDetails = new Parser($exception->headers);
+
+        return Inertia::render('Exceptions/Exceptions', ['requestDetails' => $requestDetails ]);
+    })->name('exception.request');
 
     Route::resource('/services', ServiceController::class);
 

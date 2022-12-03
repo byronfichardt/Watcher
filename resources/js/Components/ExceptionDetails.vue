@@ -24,7 +24,7 @@
             <div :id="'collapse0'" class="accordion-collapse collapse show" :aria-labelledby="'heading0'"
                  data-bs-parent="#accordionExample">
                 <div class="accordion-body py-4 px-5">
-                    <pre><code>{{ parseCode(exception.code, exception.line) }}</code></pre>
+                    <Code :code="exception.code" :line="exception.line"></Code>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
             <div :id="'collapse'+(index+1)" class="accordion-collapse collapse" :aria-labelledby="'heading'+(index+1)"
                  data-bs-parent="#accordionExample">
                 <div class="accordion-body py-4 px-5">
-                    <pre><code>{{ parseCode(trace.code, trace.line) }}</code></pre>
+                    <Code :code="trace.code" :line="trace.line"></Code>
                 </div>
             </div>
         </div>
@@ -62,10 +62,7 @@
 
 <script setup>
 import {computed, defineProps, ref} from 'vue';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-
-dayjs.extend(relativeTime);
+import Code from "@/Components/Code.vue";
 
 const props = defineProps({
     event: {
@@ -89,23 +86,6 @@ const filteredStackTrace = computed(() => {
     }
     return stackTrace
 });
-
-const parseCode = (codeArray, line) => {
-    let code = '';
-    try {
-        code = JSON.parse(codeArray)
-    } catch (e) {
-        return codeArray
-    }
-
-    let codeString = '';
-    if(code) {
-        for (const key of Object.keys(code)) {
-            codeString += (parseInt(key)+1) + ' ' + code[key] + '\n';
-        }
-    }
-    return codeString;
-}
 
 </script>
 

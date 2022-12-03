@@ -14,6 +14,11 @@ class Exception extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'server' => 'array',
+        'headers' => 'array',
+    ];
+
     public static function booted()
     {
         static::addGlobalScope(new ResolvedScope());

@@ -35,11 +35,16 @@ class ExceptionFactory
                 'service_id' => $exceptionDto->getServiceId(),
                 'code' => $exceptionDto->getCode(),
                 'status_code' => $exceptionDto->getStatusCode(),
+                'route' => $exceptionDto->getServer()['REQUEST_URI'],
+                'method' => $exceptionDto->getServer()['REQUEST_METHOD'],
+                'headers' => $exceptionDto->getHeaders(),
+                'server' => $exceptionDto->getServer(),
+                'type' => $exceptionDto->getType(),
             ]);
         }
 
         $this->createExceptionEvent($exceptionDto, $exception);
-        $this->recalculateStats($exception);
+        $this->recalculateStats($exception, $exceptionDto);
     }
 
     /**
@@ -53,6 +58,9 @@ class ExceptionFactory
             $exception->getKey(),
             $exceptionEvent->getMessage(),
             json_encode($exceptionEvent->getStackTrace()),
+            $exceptionEvent->getServer()['HTTP_HOST'],
+            $exceptionEvent->getServer()['REMOTE_ADDR'],
+            $exceptionEvent->getServer()['HTTP_USER_AGENT'],
             json_encode($exceptionEvent->getPayload()),
         );
     }
@@ -65,8 +73,14 @@ class ExceptionFactory
         }
     }
 
-    protected function recalculateStats(Exception $exception): void
+    protected function recalculateStats(Exception $exception, ExceptionDto $exceptionDto): void
     {
+        $users = $exception->events->pluck('ip')->toArray();
+
+        if (!in_array($exceptionDto->getServer()['REMOTE_ADDR'], $users)) {
+            $exception->users += 1;
+        }
+
         $exception->last_day = $exception->events()->whereDate('created_at', '>=', now()->subDay())->count();
         $exception->last_week = $exception->events()->whereDate('created_at', '>=', now()->subWeek())->count();
         $exception->last_month = $exception->events()->whereDate('created_at', '>=', now()->subMonth())->count();

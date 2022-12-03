@@ -2,49 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Exception\ExceptionDto;
-use App\Domain\Factories\ExceptionFactory;
 use App\Models\Environment;
+use App\Models\Exception;
 use App\Models\Service;
 use Illuminate\Http\Request;
-use JetBrains\PhpStorm\NoReturn;
+use Inertia\Inertia;
+use Inertia\Response;
+use WhichBrowser\Parser;
 
 class ExceptionController extends Controller
 {
-    public function __construct(ExceptionFactory $exceptionFactory)
+    public function index(Request $request): Response
     {
-        $this->exceptionFactory = $exceptionFactory;
+        $environments = Environment::all();
+        $services = Service::all();
+        $exceptions = Exception::with(['events' => fn($query) => $query->orderByDesc('created_at'), 'environment', 'service']);
+
+        if($request->input('service')) {
+            $exceptions = $exceptions->where('service_id', $request->input('service'));
+        }
+        if($request->input('environment')) {
+            $exceptions = $exceptions->where('environment_id', $request->input('environment'));
+        }
+
+        $exceptions = $exceptions->orderByDesc('created_at')->get();
+
+        $exceptions = $exceptions->map(function ($exception) {
+            $exception->requestDetails = new Parser($exception->headers);
+            return $exception;
+        });
+
+        return Inertia::render('Exceptions/Exceptions', [
+            'exceptions' => $exceptions,
+            'environments' => $environments,
+            'services' => $services,
+        ]);
     }
 
-    #[NoReturn] public function __invoke(Request $request)
+    public function show(Exception $exception): Response
     {
-        $validated = $request->validate([
-            'environment' => 'required|string',
-            'exception' => 'required|array',
-            'payload' => 'array',
+        $exception->load(['events', 'service', 'environment']);
+        $exception->requestDetails = new Parser($exception->headers);
+
+        return Inertia::render('Exceptions/Details', [
+            'exception' => $exception,
         ]);
-
-        $service = Service::where('service_id', $request->header('X-Service-ID'))->firstOrFail();
-        $environment = Environment::where('name', $request->environment)
-            ->where('service_id', $service->getKey())
-            ->firstOrCreate([
-                'name' => $validated['environment'],
-                'service_id' => $service->getKey(),
-            ]);
-
-        $exception = $request->exception;
-        $exception = new ExceptionDto(
-            $service->getKey(),
-            $environment->getKey(),
-            $exception['message'],
-            $exception['statusCode'],
-            $exception['trace'],
-            $validated['payload'],
-            $exception['file'],
-            $exception['line'],
-            $exception['code'],
-        );
-
-        $this->exceptionFactory->create($exception);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ExceptionController;
+use App\Http\Controllers\Api\ExceptionController;
 use App\Http\Middleware\TrimStrings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

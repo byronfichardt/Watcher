@@ -14,6 +14,9 @@ class ExceptionDto
         protected string $file,
         protected int $line,
         protected string $code,
+        protected array $server,
+        protected array $headers,
+        protected string $type,
     ) {
     }
 
@@ -87,5 +90,29 @@ class ExceptionDto
     public function getStatusCode(): int
     {
         return $this->statusCode;
+    }
+
+    /**
+     * @return array
+     */
+    public function getServer(): array
+    {
+        return $this->server;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 }
