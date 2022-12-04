@@ -64,7 +64,7 @@
                 <li>
                     <label >
                         <span class="font-bold">Host : </span>
-                        <span>{{ selectedEvent.host ?? '' }}</span>
+                        <span>{{ selectedEvent?.host }}</span>
                     </label>
                 </li>
                 <li>
@@ -82,21 +82,21 @@
                 <li>
                     <label >
                         <span class="font-bold">Browser : </span>
-                        <span>{{ exception.requestDetails.browser.name +' : '+ (exception.requestDetails.browser.version.value ?? '') }}</span>
+                        <span>{{ exception.requestDetails.browser?.name +' : '+ (exception.requestDetails.browser.version?.value) }}</span>
                     </label>
                 </li>
 
                 <li>
                     <label >
                         <span class="font-bold">OS : </span>
-                        <span>{{ exception.requestDetails.os.name +' : '+ (exception.requestDetails.os.version.value ?? null) }}</span>
+                        <span>{{ exception.requestDetails.os?.name +' : '+ (exception.requestDetails.os.version?.value) }}</span>
                     </label>
                 </li>
 
                 <li>
                     <label >
                         <span class="font-bold">Device : </span>
-                        <span>{{ exception.requestDetails.device.type }}</span>
+                        <span>{{ exception.requestDetails.device?.type }}</span>
                     </label>
                 </li>
             </ul>
