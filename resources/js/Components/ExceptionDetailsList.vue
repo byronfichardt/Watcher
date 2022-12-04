@@ -64,7 +64,7 @@
                 <li>
                     <label >
                         <span class="font-bold">Host : </span>
-                        <span>{{ selectedEvent.host }}</span>
+                        <span>{{ selectedEvent.host ?? '' }}</span>
                     </label>
                 </li>
                 <li>
