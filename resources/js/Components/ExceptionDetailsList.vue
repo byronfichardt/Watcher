@@ -82,14 +82,14 @@
                 <li>
                     <label >
                         <span class="font-bold">Browser : </span>
-                        <span>{{ exception.requestDetails.browser.name +' : '+ exception.requestDetails.browser.version.value }}</span>
+                        <span>{{ exception.requestDetails.browser.name +' : '+ (exception.requestDetails.browser.version.value ?? '') }}</span>
                     </label>
                 </li>
 
                 <li>
                     <label >
                         <span class="font-bold">OS : </span>
-                        <span>{{ exception.requestDetails.os.name +' : '+ exception.requestDetails.os.version.value }}</span>
+                        <span>{{ exception.requestDetails.os.name +' : '+ (exception.requestDetails.os.version.value ?? null) }}</span>
                     </label>
                 </li>
 
