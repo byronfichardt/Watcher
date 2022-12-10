@@ -16,8 +16,7 @@ class ExceptionController extends Controller
     {
         $environments = Environment::all();
         $services = Service::all();
-        $exceptions = Exception::with(['events' => fn($query) => $query->orderByDesc('created_at'), 'environment', 'service']);
-
+        $exceptions = Exception::with(['events', 'environment', 'service']);
         if($request->input('service')) {
             $exceptions = $exceptions->where('service_id', $request->input('service'));
         }
@@ -41,7 +40,7 @@ class ExceptionController extends Controller
 
     public function show(Exception $exception): Response
     {
-        $exception->load(['events', 'service', 'environment']);
+        $exception->load(['events' => fn($query) => $query->orderByDesc('created_at'), 'service', 'environment']);
         $exception->requestDetails = new Parser($exception->headers);
 
         return Inertia::render('Exceptions/Details', [

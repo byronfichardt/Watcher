@@ -24,6 +24,7 @@
         "chart.js": "^3.9.1",
         "dayjs": "^1.11.6",
         "remove": "^0.1.5",
+        "simple-syntax-highlighter": "^2.2.5",
         "tw-elements": "^1.0.0-alpha12",
         "vue-chartjs": "^4.1.2"
     }

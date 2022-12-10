@@ -7,7 +7,7 @@
                         <span class="font-bold text-xl">{{ exception.type }}</span>
                         <span class="text-sm mt-1.5">{{exception.method + ' ' + exception.route.split('?')[0]}}</span>
                     </span>
-                    <span class="mr-4 text-sm border border-red-300 rounded pt-1">{{ exception.environment.name.toUpperCase() }}</span>
+                    <span class="mr-4 text-sm border border-red-300 rounded pt-1 px-1">{{ exception.environment.name.toUpperCase() }}</span>
                 </span>
 
                 <span class="font-bold text-gray-600 text-lg">{{ exception.message }}</span>
@@ -56,50 +56,11 @@
             <ExceptionDetails v-if="selectedEvent" :event="selectedEvent" :exception="exception"
                               :showAll="showAll"></ExceptionDetails>
         </div>
-        <div class="bg-white pr-1 col-span-8 overflow-hidden" v-if="payload">
-            <pre><code>{{ selectedEvent.payload }}</code></pre>
+        <div class="bg-gradient-to-b from-gray-100 to-gray-100 col-span-8 overflow-hidden" v-if="payload">
+            <PayloadDetails v-if="selectedEvent" :event="selectedEvent"></PayloadDetails>
         </div>
-        <div class="bg-white pr-1 col-span-8 overflow-hidden pl-2 pt-2" v-if="request">
-            <ul>
-                <li>
-                    <label >
-                        <span class="font-bold">Host : </span>
-                        <span>{{ selectedEvent?.host }}</span>
-                    </label>
-                </li>
-                <li>
-                    <label >
-                        <span class="font-bold">User-Agent : </span>
-                        <span>{{ selectedEvent.user_agent }}</span>
-                    </label>
-                </li>
-                <li>
-                    <label >
-                        <span class="font-bold">IP : </span>
-                        <span>{{ selectedEvent.ip }}</span>
-                    </label>
-                </li>
-                <li>
-                    <label >
-                        <span class="font-bold">Browser : </span>
-                        <span>{{ exception.requestDetails.browser?.name +' : '+ (exception.requestDetails.browser.version?.value) }}</span>
-                    </label>
-                </li>
-
-                <li>
-                    <label >
-                        <span class="font-bold">OS : </span>
-                        <span>{{ exception.requestDetails.os?.name +' : '+ (exception.requestDetails.os.version?.value) }}</span>
-                    </label>
-                </li>
-
-                <li>
-                    <label >
-                        <span class="font-bold">Device : </span>
-                        <span>{{ exception.requestDetails.device?.type }}</span>
-                    </label>
-                </li>
-            </ul>
+        <div class="bg-gradient-to-b from-gray-100 to-gray-100 col-span-8 overflow-hidden" v-if="request">
+            <RequestDetails v-if="selectedEvent" :event="selectedEvent" :exception="exception"></RequestDetails>
         </div>
     </div>
 </template>
@@ -109,6 +70,8 @@ import ExceptionDetails from "@/Components/ExceptionDetails.vue";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {ref} from "vue";
+import PayloadDetails from "@/Components/PayloadDetails.vue";
+import RequestDetails from "@/Components/RequestDetails.vue";
 
 dayjs.extend(relativeTime);
 

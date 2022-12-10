@@ -5,6 +5,7 @@ namespace App\Domain\Factories;
 use App\Domain\Exception\ExceptionDto;
 use App\Models\Exception;
 use App\Models\ExceptionEvent;
+use Illuminate\Support\Arr;
 
 class ExceptionFactory
 {
@@ -43,8 +44,9 @@ class ExceptionFactory
             ]);
         }
 
+        $this->calculateUsers($exception, $exceptionDto);
         $this->createExceptionEvent($exceptionDto, $exception);
-        $this->recalculateStats($exception, $exceptionDto);
+        $this->recalculateStats($exception);
     }
 
     /**
@@ -73,17 +75,21 @@ class ExceptionFactory
         }
     }
 
-    protected function recalculateStats(Exception $exception, ExceptionDto $exceptionDto): void
+    protected function recalculateStats(Exception $exception): void
     {
-        $users = $exception->events->pluck('ip')->toArray();
-
-        if (!in_array($exceptionDto->getServer()['REMOTE_ADDR'], $users)) {
-            $exception->users += 1;
-        }
-
         $exception->last_day = $exception->events()->whereDate('created_at', '>=', now()->subDay())->count();
         $exception->last_week = $exception->events()->whereDate('created_at', '>=', now()->subWeek())->count();
         $exception->last_month = $exception->events()->whereDate('created_at', '>=', now()->subMonth())->count();
         $exception->save();
+    }
+
+    protected function calculateUsers(Exception $exception, ExceptionDto $exceptionDto): void
+    {
+        $users = $exception->events->pluck('ip')->toArray();
+
+        if (!in_array($exceptionDto->getServer()['REMOTE_ADDR'], $users)) {
+            $exception->users = intval($exception->users) + 1;
+            $exception->save();
+        }
     }
 }
