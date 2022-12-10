@@ -43,7 +43,7 @@ So you can register a user by going to {app_url}/register.
 Once registered you will be logged in and see the Dashboard
 
 ![Dashboard](https://github.com/byronfichardt/free-exception-tracker/blob/main/public/img/img.png)
-![Details](https://github.com/byronfichardt/free-exception-tracker/blob/main/public/img/img detail.png)
+![Details](https://github.com/byronfichardt/Watcher/blob/1032d8d67d445667c08e7eecd67a8fdc075339e9/public/img/img%20detail.png)
 
 You will then need to go to {app_url}/services and create a service.
 This will generate a token that you will need to add to your application .env, (This will only show once!)
