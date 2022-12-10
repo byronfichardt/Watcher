@@ -1,8 +1,8 @@
-# Open Exception Tracker
+# Watcher - The Open Source Exception Tracker
 
-## About Open Exception Tracker
+## About Watcher
 
-Open Exception Tracker is a way for you to host your own exception tracker.
+Watcher is a way for you to host your own exception tracker.
 
 ## Installation
 
@@ -50,11 +50,11 @@ It will also generate a service ID that will identify which service you will be 
 (see details below)
 
 ### Client
-https://github.com/byronfichardt/laravel-free-exception-tracker  
+https://github.com/byronfichardt/laravel-watcher  
 Then you will need to install the client package on the laravel project you want to track exceptions.
 
 ```bash
-composer require byronfichardt/free-exception-tracker-client
+composer require byronfichardt/laravel-watcher
 ```
 
 Then you need to add the following to your .env file:
