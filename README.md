@@ -10,7 +10,7 @@ Open Exception Tracker is a way for you to host your own exception tracker.
 You can install the application via git clone:
 
 ```bash
-git clone git@github.com:byronfichardt/free-exception-tracker.git
+git clone git@github.com:byronfichardt/watcher.git
 ```
 
 Once installed, you can run the following commands to install the dependencies:
