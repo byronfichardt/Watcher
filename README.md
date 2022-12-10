@@ -1,11 +1,12 @@
 # Watcher - The Open Source Exception Tracker
 
 ## Why Watcher
-Watcher is a way for you to host your own exception tracker.  
-With [GDPR](https://gdpr-info.eu/), companies and individuals need to be able to comply.  
-One way to be more compliant is to host the exception tracker yourself. 
+* Watcher is open source.  
+* It is easy to use
+* It looks great 
+* It is functional.  
 
-Watcher is a great open source way to watch for exceptions in your apps.
+Because Watcher is open source it allows you to host the exception tracker on your own server, storing all your data where you want it.
 
 ## Installation
 
