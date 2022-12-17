@@ -64,6 +64,7 @@ class ExceptionFactory
             $exceptionEvent->getServer()['REMOTE_ADDR'],
             $exceptionEvent->getServer()['HTTP_USER_AGENT'],
             json_encode($exceptionEvent->getPayload()),
+            json_encode($exceptionEvent->getBreadcrumbList()),
         );
     }
 

@@ -46,7 +46,8 @@ class ExceptionController extends Controller
             $exception['code'],
             $exception['server'],
             $exception['headers'],
-            $exception['type']
+            $exception['type'],
+            $exception['breadcrumbList'] ?? [],
         );
 
         $this->exceptionFactory->create($exception);

@@ -17,6 +17,7 @@ class ExceptionDto
         protected array $server,
         protected array $headers,
         protected string $type,
+        protected array $breadcrumbList,
     ) {
     }
 
@@ -114,5 +115,13 @@ class ExceptionDto
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBreadcrumbList(): array
+    {
+        return $this->breadcrumbList;
     }
 }
