@@ -28,7 +28,7 @@ class ExceptionController extends Controller
 
         $exceptions = $exceptions->map(function ($exception) {
             $exception->requestDetails = new Parser($exception->headers);
-            $type = explode('/',$exception->type);
+            $type = explode('\\',$exception->type);
             $exception->type = end($type);
             return $exception;
         });
