@@ -13,7 +13,7 @@
                     <span v-if="exception.new" class="px-2 py-1 mr-2 rounded text-gray-500 bg-red-200 font-semibold text-sm align-center flex w-max mt-1 mb-2 float-left">
                          New Issue
                     </span>
-                    <span class="pr-2 pt-1.5 float-left">{{ dayjs(exception.last_occured_at).fromNow() }}</span>
+                    <span class="pr-2 pt-1.5 float-left">{{ dayjs(exception.last_occurred_at).fromNow() }}</span>
                 </span>
             </Link>
         </div>
