@@ -6,6 +6,7 @@ use App\Models\Environment;
 use App\Models\Exception;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use Inertia\Response;
 use WhichBrowser\Parser;
@@ -24,12 +25,13 @@ class ExceptionController extends Controller
             $exceptions = $exceptions->where('environment_id', $request->input('environment'));
         }
 
-        $exceptions = $exceptions->orderByDesc('created_at')->get();
+        $exceptions = $exceptions->orderByDesc('last_occurred_at')->get();
 
         $exceptions = $exceptions->map(function ($exception) {
             $exception->requestDetails = new Parser($exception->headers);
             $type = explode('\\',$exception->type);
             $exception->type = end($type);
+            $exception->last_occurred_at = Carbon::parse($exception->last_occurred_at)->toiSOString();
             return $exception;
         });
 
