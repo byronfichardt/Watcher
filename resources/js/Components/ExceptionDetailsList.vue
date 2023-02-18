@@ -95,7 +95,7 @@ const props = defineProps({
 
 const tab = ref('stacktrace');
 
-const selectedEvent = ref(null);
+const selectedEvent = ref(props.exception.events[0] || null);
 
 const showAll = ref(false);
 

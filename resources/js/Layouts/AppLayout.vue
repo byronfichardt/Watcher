@@ -14,7 +14,7 @@ defineProps({
 
     <main class="h-screen">
         <SideNav />
-        <div class="flex flex-row ml-48">
+        <div class="flex flex-row m-auto ">
             <section class="w-full">
                 <slot />
             </section>

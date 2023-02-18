@@ -4,6 +4,6 @@ import { Link } from '@inertiajs/inertia-vue3';
 
 <template>
     <Link :href="'/'">
-        <h3>Exception Tracker</h3>
+        <img src="/img/eyes font page.png" alt="Watcher" class="block h-32 w-auto fill-current text-gray-600">
     </Link>
 </template>

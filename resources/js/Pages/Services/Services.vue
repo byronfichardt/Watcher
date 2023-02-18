@@ -18,7 +18,7 @@ const props = defineProps({
 
 <template>
     <AppLayout title="Services">
-        <div id="main" class="mt-14">
+        <div id="main" class="mt-14 duration-500 ease-in-out ml-36">
             <div class="p-6">
                 <TokenModal :token="token" v-if="props.token"/>
                 <ServiceForm></ServiceForm>
