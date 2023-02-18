@@ -1,6 +1,6 @@
 <template>
     <AppLayout title="Details">
-        <div id="main" class="mt-14">
+        <div id="main" class="mt-14 duration-500 ease-in-out ml-36">
             <div class="p-6">
                 <ExceptionDetailsList :exception="exception"/>
             </div>

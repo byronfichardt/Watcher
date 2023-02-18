@@ -22,8 +22,8 @@ const props = defineProps({
 
 <template>
     <AppLayout title="Dashboard">
-        <div id="main" class="mt-14">
-            <div class="p-6">
+        <div id="main" class="mt-2 duration-500 ease-in-out ml-36">
+            <div class="px-8">
                 <div class="bg-gray-100 rounded-lg p-2 mb-2">
                     <div class="items-center flex flex-row gap-4">
                         <Select :name="'Service'" :models="services"/>
